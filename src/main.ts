@@ -33,8 +33,15 @@ async function init(): Promise<void> {
     window.location.reload();
   });
 
-  // -- Get the feature flag variables
-  const variables = client.getFeatureFlagVariables(visitorCode, featureKey);
+  // -- Get the feature flag variation
+  const variation = client.getVariation({
+    visitorCode,
+    featureKey,
+    track: false,
+  })
+
+  // -- Get feature flag variables from the variation
+  const variables = variation.variables;
 
   // -- Update the state with the feature flag variables
   variables.forEach(({ key, value, type }) => {
