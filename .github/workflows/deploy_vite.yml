@@ -31,8 +31,10 @@ jobs:
           node-version: 18
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Clean lockfile and install
+        run: |
+          rm -f package-lock.json
+          npm install
 
       - name: Build
         run: npm run build
@@ -49,4 +51,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
 
